@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+poetry run black --check langual tests
+poetry run mypy langual tests
+poetry run ruff langual tests
