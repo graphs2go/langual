@@ -1,6 +1,6 @@
-# MeSH
+# LanguaL
 
-Medical Subject Heading (MeSH) Thesaurus transformation pipelines.
+LanguaL Thesaurus transformation pipelines.
 
 ## Prerequisites
 
@@ -13,18 +13,6 @@ Medical Subject Heading (MeSH) Thesaurus transformation pipelines.
 
     script/bootstrap
 
-### Download the MeSH thesaurus
-
-[Download the MeSH thesaurus in N-Triples](https://nlmpubs.nlm.nih.gov/projects/mesh/rdf/) to `data/input`.
-
-The resulting directory tree should resemble:
-
-* `data/`
-  * `input/`
-    * `mesh2024.nt`
-
-or similar, depending on the release year.
-
 ## Running
 
 ### From an installed Poetry virtual environment (recommended for OS X)
@@ -33,14 +21,14 @@ or similar, depending on the release year.
 
 The code includes multiple [Dagster](https://dagster.io/) pipelines. Each pipeline (a Dagster "job") has a corresponding shell script in `jobs/`.
 
-For example, to transform the MeSH thesaurus into multiple representations and serialize them as files in `data/output`, run:
+For example, to transform the LanguaL thesaurus into multiple representations and serialize them as files in `data/output`, run:
 
     jobs/files
 
 ## Structure of this project
 
-* `data/input/`: directory containing a MeSH thesaurus .nt file
-* `data/output/`: transformed/output data such as RDF versions of the MeSH thesaurus
+* `data/input/`: directory containing LanguaL thesaurus XML
+* `data/output/`: transformed/output data such as RDF versions of the LanguaL thesaurus
 * `mesh`: Python code
 * `script`: scripts following the [Scripts To Rule Them All](https://github.com/github/scripts-to-rule-them-all) normalized script pattern
 * `tests`: unit tests
