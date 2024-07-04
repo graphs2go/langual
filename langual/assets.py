@@ -58,6 +58,11 @@ def release(context: AssetExecutionContext) -> Release:
     return Release.from_partition_key(context.partition_key)
 
 
-skos_file = build_skos_file_asset(partitions_def=Some(releases_partitions_definition))
+skos_file = build_skos_file_asset(
+    partitions_def=Some(releases_partitions_definition),
+    rdf_graph_identifier_to_file_stem=Some(
+        lambda identifier: f"LanguaL{identifier[-4:]}.skos"
+    ),
+)
 
 skos_graph = build_skos_graph_asset(partitions_def=Some(releases_partitions_definition))

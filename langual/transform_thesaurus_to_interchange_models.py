@@ -10,7 +10,7 @@ from langual.models import Thesaurus, Descriptor
 
 
 def __transform_descriptor_to_interchange_models(descriptor: Descriptor):
-    yield interchange.Node.builder(descriptor.iri).set_created(
+    yield interchange.Node.builder(descriptor.iri).add_type(SKOS.Concept).set_created(
         descriptor.date_created
     ).set_modified(descriptor.date_updated).build()
 
@@ -82,4 +82,5 @@ def __transform_thesaurus_to_interchange_models(
     yield interchange.Label.builder(
         literal_form=Literal(thesaurus.header.title),
         subject=thesaurus.iri,
+        type_=Some(LabelType.PREFERRED),
     ).build()
