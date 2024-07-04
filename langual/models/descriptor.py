@@ -93,11 +93,6 @@ class Descriptor:
         return date.fromisoformat(self.__child_text("DATEUPDATED").unwrap())
 
     @property
-    @cache
-    def definitions(self) -> tuple[Literal, ...]:  # type: ignore
-        return self.additional_information.map(lambda ai: (Literal(ai),)).value_or(())
-
-    @property
     def ftc(self) -> str:
         return self.__ftc
 
@@ -106,7 +101,11 @@ class Descriptor:
         return self.__iri
 
     def narrower_descriptors(self) -> Iterable[Descriptor]:
-        yield self.__thesaurus.narrower_descriptors(self)
+        yield from self.__thesaurus.narrower_descriptors(self)
+
+    def related_descriptors(self) -> Iterable[Descriptor]:
+        for ftc in _children_texts(self.__element.find("RELATEDTERMS"), "RELATEDTERM"):
+            yield self.__thesaurus.descriptor_by_ftc(ftc)
 
     @property
     @cache
@@ -123,19 +122,13 @@ class Descriptor:
 
     @property
     @cache
-    def scope_notes(self) -> tuple[Literal, ...]:
-        sn = self.__child_text("SN")
-        return (Literal(sn),) if sn is not None else ()
+    def scope_note(self) -> Maybe[str]:
+        return self.__child_text("SN")
 
     @property
     @cache
     def single(self) -> bool:
         return self.__child_text("SINGLE") == "True"
-
-    @property
-    @cache
-    def related_terms(self) -> tuple[str, ...]:
-        return _children_texts(self.__element.find("RELATEDTERMS"), "RELATEDTERM")
 
     @property
     @cache

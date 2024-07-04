@@ -3,19 +3,24 @@ from collections.abc import Iterable
 from pathlib import Path
 
 import pytest
-from returns.maybe import Some
+from returns.maybe import Nothing
 
-from agrovoc import assets
-from agrovoc.find_releases import find_releases
-from agrovoc.models import Release, Thesaurus
-from agrovoc.paths import INPUT_DIRECTORY_PATH, RDF_STORE_DIRECTORY_PATH
 from graphs2go.models import interchange, skos
 from graphs2go.resources import DirectoryInputConfig, OutputConfig, RdfStoreConfig
 from graphs2go.utils import configure_markus, load_dotenv
+from langual import assets
+from langual.find_releases import find_releases
+from langual.models import Release
+from langual.paths import INPUT_DIRECTORY_PATH
 
 load_dotenv()
 configure_markus()
 logger = logging.getLogger(__name__)
+
+
+@pytest.fixture(scope="session")
+def input_config() -> DirectoryInputConfig:
+    return DirectoryInputConfig.default(directory_path_default=INPUT_DIRECTORY_PATH)
 
 
 @pytest.fixture(scope="session")
@@ -30,10 +35,10 @@ def interchange_graph(
 
 @pytest.fixture(scope="session")
 def interchange_graph_descriptor(
-    rdf_store_config: RdfStoreConfig, thesaurus_descriptor: Thesaurus.Descriptor
+    rdf_store_config: RdfStoreConfig, release: Release
 ) -> interchange.Graph.Descriptor:
     return assets.interchange_graph(
-        rdf_store_config=rdf_store_config, thesaurus=thesaurus_descriptor
+        rdf_store_config=rdf_store_config, release=release
     )  # type: ignore
 
 
@@ -44,32 +49,12 @@ def output_config(tmp_path: Path) -> OutputConfig:
 
 @pytest.fixture(scope="session")
 def rdf_store_config() -> RdfStoreConfig:
-    return RdfStoreConfig.default(directory_path_default=Some(RDF_STORE_DIRECTORY_PATH))
+    return RdfStoreConfig.default(directory_path_default=Nothing)
 
 
 @pytest.fixture(scope="session")
 def release(input_config: DirectoryInputConfig) -> Release:
     return find_releases(input_config=input_config)[0]
-
-
-@pytest.fixture(scope="session")
-def input_config() -> DirectoryInputConfig:
-    return DirectoryInputConfig.default(directory_path_default=INPUT_DIRECTORY_PATH)
-
-
-@pytest.fixture(scope="session")
-def thesaurus(
-    thesaurus_descriptor: Thesaurus.Descriptor,
-) -> Iterable[Thesaurus]:
-    with Thesaurus.open(descriptor=thesaurus_descriptor, read_only=True) as thesaurus:
-        yield thesaurus
-
-
-@pytest.fixture(scope="session")
-def thesaurus_descriptor(
-    rdf_store_config: RdfStoreConfig, release: Release
-) -> Thesaurus.Descriptor:
-    return assets.thesaurus(rdf_store_config=rdf_store_config, release=release)  # type: ignore
 
 
 @pytest.fixture(scope="session")
