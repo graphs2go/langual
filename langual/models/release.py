@@ -13,10 +13,12 @@ class Release:
 
     def __init__(self, file_path: Path):
         file_stem_prefix = "LanguaL"
-        if file_path.stem.startswith(file_stem_prefix):
+        if not file_path.stem.startswith(file_stem_prefix):
             raise ValueError(
                 f"{file_path} file name does not start with {file_stem_prefix}"
             )
+        if file_path.stem.endswith(".formatted"):
+            raise ValueError("ignore formatted XML file")
         if file_path.suffix.lower() != ".xml":
             raise ValueError(f"{file_path} does not have .xml extension")
         self.__xml_file_path = file_path
