@@ -1,20 +1,13 @@
 from urllib.parse import quote
 
-from dagster import (
-    AssetExecutionContext,
-    StaticPartitionsDefinition,
-    asset,
-)
+from dagster import AssetExecutionContext, StaticPartitionsDefinition, asset
+from graphs2go.assets import build_skos_file_asset, build_skos_graph_asset
+from graphs2go.models import interchange
+from graphs2go.resources import DirectoryInputConfig, RdfStoreConfig
 from rdflib import URIRef
 from returns.maybe import Some
 from tqdm import tqdm
 
-from graphs2go.assets import (
-    build_skos_file_asset,
-    build_skos_graph_asset,
-)
-from graphs2go.models import interchange
-from graphs2go.resources import DirectoryInputConfig, RdfStoreConfig
 from langual.find_releases import find_releases
 from langual.models import Release, Thesaurus
 from langual.paths import INPUT_DIRECTORY_PATH

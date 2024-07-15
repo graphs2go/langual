@@ -1,12 +1,12 @@
 from collections.abc import Iterable
 
+from graphs2go.models import interchange
+from graphs2go.models.label_type import LabelType
 from rdflib import SKOS, Literal
 from returns.maybe import Some
 from returns.pipeline import is_successful
 
-from graphs2go.models import interchange
-from graphs2go.models.label_type import LabelType
-from langual.models import Thesaurus, Descriptor
+from langual.models import Descriptor, Thesaurus
 
 
 def __transform_descriptor_to_interchange_models(descriptor: Descriptor):

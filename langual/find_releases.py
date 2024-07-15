@@ -1,7 +1,7 @@
 from dagster import get_dagster_logger
-
 from graphs2go.resources import DirectoryInputConfig
 from graphs2go.utils import find_file_releases
+
 from langual.models import Release
 
 

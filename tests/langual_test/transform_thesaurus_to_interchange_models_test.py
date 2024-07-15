@@ -1,6 +1,6 @@
 import pytest
-
 from graphs2go.models import interchange
+
 from langual.models import Release, Thesaurus
 from langual.transform_thesaurus_to_interchange_models import (
     transform_thesaurus_to_interchange_models,
