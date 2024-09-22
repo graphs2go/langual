@@ -1,6 +1,6 @@
 # Graphs2go: LanguaL Thesaurus
 
-Convert the [LanguaL Thesaurus](https://www.langual.org/langual_Thesaurus.asp) to Cypher and SKOS RDF.
+Transform the [LanguaL Thesaurus](https://www.langual.org/langual_Thesaurus.asp) into Cypher and SKOS RDF.
 
 ## Getting started
 
@@ -15,7 +15,7 @@ Convert the [LanguaL Thesaurus](https://www.langual.org/langual_Thesaurus.asp) t
 
 ### Download the LanguaL Thesaurus
 
-[Download the LanguaL Thesaurus XML file](Click here to download) to `data/input`.
+[Download the LanguaL Thesaurus XML file](https://www.langual.org/xml/LanguaL2017.XML) to `data/input`.
 
 The resulting directory tree should resemble:
 
@@ -25,7 +25,7 @@ The resulting directory tree should resemble:
 
 ## Usage
 
-Convert the LanguaL Thesaurus into Cypher and RDF and serialize them as files in `data/output`:
+Transform the LanguaL Thesaurus into Cypher and RDF and serialize them as files in `data/output`:
 
     jobs/files
 
