@@ -9,10 +9,16 @@ from returns.pipeline import is_successful
 from langual.models import Descriptor, Thesaurus
 
 
-def __transform_descriptor_to_interchange_models(descriptor: Descriptor):
-    yield interchange.Node.builder(descriptor.iri).add_type(SKOS.Concept).set_created(
-        descriptor.date_created
-    ).set_modified(descriptor.date_updated).build()
+def __transform_descriptor_to_interchange_models(
+    descriptor: Descriptor,
+) -> Iterable[interchange.Model]:
+    yield (
+        interchange.Node.builder(descriptor.iri)
+        .add_type(SKOS.Concept)
+        .set_created(descriptor.date_created)
+        .set_modified(descriptor.date_updated)
+        .build()
+    )
 
     # Labels
     if is_successful(descriptor.term):
@@ -75,9 +81,12 @@ def transform_thesaurus_to_interchange_models(
 def __transform_thesaurus_to_interchange_models(
     thesaurus: Thesaurus,
 ) -> Iterable[interchange.Model]:
-    yield interchange.Node.builder(iri=thesaurus.iri).add_type(
-        SKOS.ConceptScheme
-    ).set_modified(thesaurus.header.export_date).build()
+    yield (
+        interchange.Node.builder(iri=thesaurus.iri)
+        .add_type(SKOS.ConceptScheme)
+        .set_modified(thesaurus.header.export_date)
+        .build()
+    )
 
     yield interchange.Label.builder(
         literal_form=Literal(thesaurus.header.title),

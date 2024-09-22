@@ -37,9 +37,7 @@ def interchange_graph(
 def interchange_graph_descriptor(
     rdf_store_config: RdfStoreConfig, release: Release
 ) -> interchange.Graph.Descriptor:
-    return assets.interchange_graph(
-        rdf_store_config=rdf_store_config, release=release
-    )  # type: ignore
+    return assets.interchange_graph(rdf_store_config=rdf_store_config, release=release)  # type: ignore
 
 
 @pytest.fixture()
