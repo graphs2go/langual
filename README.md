@@ -6,7 +6,7 @@ Transform the [LanguaL Thesaurus](https://www.langual.org/langual_Thesaurus.asp)
 
 ### Prerequisites
 
-* [Python](https://www.python.org/)
+* [Python 3.12](https://www.python.org/)
 * [Python Poetry](https://python-poetry.org/)
 
 ### Install Python dependencies
