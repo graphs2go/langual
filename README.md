@@ -32,3 +32,9 @@ Transform the LanguaL Thesaurus into Cypher and RDF and serialize them as files 
 Due to a limitation in Dagster, the script will not exit when all the files have been generated. You will have to terminate it with ^C after you see the message:
 
     Shutting down Dagster code server
+
+## Credits
+
+LanguaL™ and the LanguaL™ 2017 Thesaurus are in public domain.
+
+Input data was downloaded from [https://www.langual.org](https://www.langual.org).
